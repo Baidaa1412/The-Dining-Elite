@@ -141,9 +141,13 @@ Route::controller(LoginRegisterController::class)->group(function() {
 
 
 Route::resource("/reservation", ReservationController::class);
-Route::resource("/categories", CategoryController::class);
+// Route::resource("/categories", CategoryController::class);
 
 
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/subcat', 'show')->name('subcat');
+});
 
 Route::controller(ResturantController::class)->group(function() {
 Route::get('/book','showSecondPage')->name('showSecondPage');

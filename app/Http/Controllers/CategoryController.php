@@ -19,11 +19,8 @@ class CategoryController extends Controller
         public function index()
         {
             $categories = Category::all();
-            return view('home.category', compact('categories'));
-
-
+            return view('home.show', compact('categories'));
         }
-
 
 
     /**
@@ -31,4 +28,5 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
 }

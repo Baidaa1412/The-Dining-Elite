@@ -19,6 +19,7 @@ body {
     background-color:none;
     border-radius: 10px ;
     border: #cda45e 2px solid;
+    margin-top:8%
 }
 
 img{

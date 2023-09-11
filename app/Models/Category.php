@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    protected $table = 'categories';
-    protected $fillable = ['name'];
-    protected $primaryKey = 'id';
+    protected $guarded = [];
+
+    public function subcategories(){
+        return $this->hasMany('App\Category', 'parent_id');
+    }
 }

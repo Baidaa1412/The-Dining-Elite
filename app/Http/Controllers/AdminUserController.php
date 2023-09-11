@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminUser;
+use App\Models\softDeletes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserController extends Controller
 {
@@ -15,7 +17,7 @@ class AdminUserController extends Controller
     public function index()
     {
         $Users = AdminUser::all();
-        return view ('admin.sidebar.user')->with('Users', $Users);
+        return view ('admin.user.index' , compact('Users'));
     }
 
     /**
@@ -25,7 +27,7 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-        return view('admin.add.user');
+        return view('admin.user.add');
     }
 
     /**
@@ -36,9 +38,16 @@ class AdminUserController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        AdminUser::create($input);
-        return redirect('User')->with('flash_message', 'User Addedd!'); 
+        $hashedPassword = Hash::make($request->password);
+        AdminUser::create([
+            // "Database Colum"=>"Request Input",
+            "name" => $request->name,
+            "email" => $request->email,
+            "password" => $hashedPassword,
+        ]);
+                // return response(' The Student Add Successfully');
+
+        return redirect()->route('User.index');
     }
 
     /**
@@ -62,8 +71,8 @@ class AdminUserController extends Controller
      */
     public function edit($id)
     {
-        $User = AdminUser::find($id);
-        return view('admin.edit.user')->with('Users', $User);
+        $User = AdminUser::findorFail($id);
+        return view('admin.user.edit' , compact('User'));
     }
 
     /**
@@ -78,7 +87,7 @@ class AdminUserController extends Controller
         $User = AdminUser::find($id);
         $input = $request->all();
         $User->update($input);
-        return redirect('admin.sidebar.user')->with('flash_message', 'User Updated!'); 
+        return redirect('User')->with('flash_message', 'User Updated!'); 
     }
 
     /**
@@ -87,9 +96,9 @@ class AdminUserController extends Controller
      * @param  \App\Models\AdminUser  $adminUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AdminUser $adminUser, $id)
+    public function destroy($id)
     {
         AdminUser::destroy($id);
-        return redirect()->route('admin.sidebar.user');
+        return redirect()->route('User.index');
     }
 }

@@ -12,7 +12,7 @@
         background-image: url('./images/slide.png');
         background-repeat: no-repeat;
         background-size: cover;
-        background-attachment: fixed;
+        /* background-attachment: fixed; */
    }
 #btn:hover {
 background-color: #E2C799;

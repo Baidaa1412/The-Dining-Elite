@@ -17,11 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->string('phone');
+            $table->Integer('phone');
             $table->datetime('res_date')->default(now());
             $table->Integer('guest_number');
             $table->string('restaurant');
             $table->string('message');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

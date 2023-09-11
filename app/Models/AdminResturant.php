@@ -14,5 +14,5 @@ class AdminResturant extends Model
 
     protected $table = 'resturants';
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'description', 'image', 'number_of_tables'];
+    protected $fillable = ['name', 'description', 'image', 'location', 'number_of_tables'];
 }

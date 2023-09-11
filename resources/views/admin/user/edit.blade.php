@@ -1,9 +1,14 @@
+<base href="/public">
 @extends('admin.layout')
 
 @section('title' , 'User')
 
 
 @section('content')
+
+<form action="{{route('User.update' , $User->id )}}" method="post">
+    @csrf
+    @method('PUT')
 
 <div class="container card shadow mb-4">
     <div class="row card-header">
@@ -23,25 +28,18 @@
                         <th>Password</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     <tr>
-                        <td></td>
-                        <td><input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" aria-label=".form-control-sm example"></td>
-                        <td><input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" aria-label=".form-control-sm example"></td>
-                        <td><input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" aria-label=".form-control-sm example"></td>
+                        <td value="{{$User->id}}"></td>
+                        <td><input class="form-control form-control-sm" type="text" name="name" value="{{$User->name}}" aria-label=".form-control-sm example"></td>
+                        <td><input class="form-control form-control-sm" type="text" name="email" value="{{$User->email}}" aria-label=".form-control-sm example"></td>
+                        <td><input class="form-control form-control-sm" type="text" name="password" value="{{$User->password}}" aria-label=".form-control-sm example"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+</form>
 
 @endsection

@@ -1,7 +1,7 @@
 <ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar" style="background-image: linear-gradient(180deg, #030304 40%, #F4D160 100%);">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin-layout">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin/layout">
         <div>
             <img src="./img/dining-removebg-preview.png" alt="logo" style="width: 90%">
         </div>
@@ -99,14 +99,14 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="admin-admin">
+        <a class="nav-link" href="{{ route('Admin.index') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>Admins</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="admin-user">
+        <a class="nav-link" href="{{ route('User.index') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>Users</span></a>
     </li>
@@ -120,14 +120,14 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="admin-restaurant">
+        <a class="nav-link" href="{{ route('Restaurant.index') }}">
             <i class="fas fa-fw fa-table"></i>
             <span>Restaurants</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="admin-reservation">
+        <a class="nav-link" href="{{ route('Reservation.index') }}">
             <i class="fas fa-fw fa-calendar"></i>
             <span>Reservations</span></a>
     </li>

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AdminResturant;
 use Illuminate\Http\Request;
+use App\Models\AdminResturant;
 
 class AdminResturantController extends Controller
 {
@@ -14,8 +14,8 @@ class AdminResturantController extends Controller
      */
     public function index()
     {
-        $Resturants = AdminResturant::all();
-        return view ('admin.sidebar.resturant')->with('Resturants', $Resturants);
+        $Restaurant = AdminResturant::all();
+        return view ('admin.restaurant.index' , compact('Restaurant'));
     }
 
     /**
@@ -25,7 +25,7 @@ class AdminResturantController extends Controller
      */
     public function create()
     {
-        return view('admin.add.resturant');
+        return view('admin.restaurant.add');
     }
 
     /**
@@ -36,9 +36,17 @@ class AdminResturantController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        AdminResturant::create($input);
-        return redirect('Resturant')->with('flash_message', 'Resturant Addedd!'); 
+        AdminResturant::create([
+            // "Database Colum"=>"Request Input",
+            "name" => $request->name,
+            "description" => $request->description,
+            "image" => $request->image,
+            "location" => $request->location,
+            "number_of_tables" => $request->number_of_tables,
+        ]);
+                // return response(' The Student Add Successfully');
+
+        return redirect()->route('Restaurant.index'); 
     }
 
     /**
@@ -49,9 +57,9 @@ class AdminResturantController extends Controller
      */
     public function show(AdminResturant $adminResturant,  $id)
     {
-        $Resturant = AdminResturant::onlyTrashed()->get();
-        return view('Resturant.softdelete' , compact('Resturant'));
-        return $Resturant;
+        $Restaurant = AdminResturant::onlyTrashed()->get();
+        return view('Restaurant.softdelete' , compact('Restaurant'));
+        return $Restaurant;
     }
 
     /**
@@ -62,8 +70,8 @@ class AdminResturantController extends Controller
      */
     public function edit($id)
     {
-        $Resturant = AdminResturant::find($id);
-        return view('admin.edit.resturant')->with('resturant', $Resturant);
+        $Restaurant = AdminResturant::findorFail($id);
+        return view('admin.restaurant.edit' , compact('Restaurant'));
     }
 
     /**
@@ -75,10 +83,10 @@ class AdminResturantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $Resturant = AdminResturant::find($id);
+        $Restaurant = AdminResturant::find($id);
         $input = $request->all();
-        $Resturant->update($input);
-        return redirect('admin.sidebar.resturant')->with('flash_message', 'Resturant Updated!'); 
+        $Restaurant->update($input);
+        return redirect('Restaurant')->with('flash_message', 'Restaurant Updated!'); 
     }
 
     /**
@@ -87,9 +95,9 @@ class AdminResturantController extends Controller
      * @param  \App\Models\AdminResturant  $adminResturant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AdminResturant $adminResturant, $id)
+    public function destroy($id)
     {
         AdminResturant::destroy($id);
-        return redirect()->route('admin.sidebar.Resturant');
+        return redirect()->route('Restaurant.index');
     }
 }

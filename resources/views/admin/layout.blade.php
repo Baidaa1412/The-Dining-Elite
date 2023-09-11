@@ -1,3 +1,4 @@
+<base href="/public">
 {{-- Top Start --}}
     @include('admin.includes.top')
 {{-- Top End --}}

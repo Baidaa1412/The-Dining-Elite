@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
 use App\Models\softDeletes;
 use Illuminate\Http\Request;
+use App\Models\AdminReservation;
 use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+class AdminReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $Admins = Admin::all();
-        return view ('admin.admin.index' , compact('Admins'));
+        $Reservations = AdminReservation::all();
+        return view ('admin.reservation.index' , compact('Reservations'));
     }
 
     /**
@@ -27,7 +27,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.admin.add');    
+        return view('admin.reservation.add'); 
     }
 
     /**
@@ -39,66 +39,70 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $hashedPassword = Hash::make($request->password);
-        Admin::create([
+        AdminReservation::create([
             // "Database Colum"=>"Request Input",
             "name" => $request->name,
             "email" => $request->email,
-            "password" => $hashedPassword,
+            "phone" => $request->phone,
+            "message" => $request->message,
+            "restaurant" => $request->restaurant,
+            "guest_number" => $request->guest_number,
+            "res_date" => $request->res_date,
         ]);
                 // return response(' The Student Add Successfully');
 
-        return redirect()->route('Admin.index');
+        return redirect()->route('Reservation.index'); 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\AdminReservation  $adminReseration
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $id)
     {
-        $Admin = Admin::onlyTrashed()->get();
-        return view('Admin.softdelete' , compact('Admin'));
-        return $Admin;
+        $Reservation = AdminReservation::onlyTrashed()->get();
+        return view('Reservation.softdelete' , compact('Reservation'));
+        return $Reservation;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\AdminReservation  $adminReservation
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $Admin = Admin::findorFail($id);
-        return view('admin.admin.edit' , compact('Admin'));
+        $Reservation = AdminReservation::findorFail($id);
+        return view('admin.reservation.edit' , compact('Reservation'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\AdminReseration  $adminReseration
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $Admin = Admin::find($id);
+        $Reservation = AdminReservation::find($id);
         $input = $request->all();
-        $Admin->update($input);
-        return redirect('Admin')->with('flash_message', 'Admin Updated!'); 
+        $Reservation->update($input);
+        return redirect('Reservation')->with('flash_message', 'Reservation Updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\AdminReservation  $adminReservation
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Admin::destroy($id);
-        return redirect()->route('Admin.index');
+        AdminReservation::destroy($id);
+        return redirect()->route('Reservation.index');
     }
 }

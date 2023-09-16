@@ -15,15 +15,19 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->Integer('phone');
-            $table->datetime('res_date')->default(now());
-            $table->Integer('guest_number');
-            $table->string('restaurant');
-            $table->string('message');
-            $table->softDeletes();
-            $table->timestamps();
+        $table->unsignedBigInteger('user_id'); // إضافة حقل user_id كمفتاح خارجي
+        $table->string('name');
+        $table->string('email');
+        $table->integer('phone'); // لاحظ أنه تم تصحيح Integer إلى integer
+        $table->datetime('res_date')->default(now());
+        $table->integer('guest_number');
+        $table->string('restaurant');
+        $table->string('message');
+        $table->softDeletes();
+        $table->timestamps();
+
+        // إضافة مفتاح خارجي يرتبط بجدول المستخدمين
+        $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -2,6 +2,9 @@
 @extends('home.masterpage')
 @extends('auth.layouts')
 <style>
+    .card{
+        margin-top:5%;
+    }
     @media only screen and (max-width: 767px) {
         .card{
             margin-top:25%;
@@ -12,13 +15,11 @@
 
 
 {{-- tharaa --}}
-<section class="vh-10 gradient-custom" >
-    <div class="container"style="margin-top:1% ;" >
-@section('content')
+
 
 
 <section class="vh-100 gradient-custom">
-    <div class="container py-5 h-100">
+    <div class="container py-5 h-100" ;>
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card bg-dark text-white" style="border-radius: 1rem;">

@@ -27,7 +27,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.admin.add');    
+        return view('admin.admin.add');
     }
 
     /**
@@ -87,7 +87,7 @@ class AdminController extends Controller
         $Admin = Admin::find($id);
         $input = $request->all();
         $Admin->update($input);
-        return redirect('Admin')->with('flash_message', 'Admin Updated!'); 
+        return redirect('Admin')->with('flash_message', 'Admin Updated!');
     }
 
     /**

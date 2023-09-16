@@ -54,21 +54,13 @@
 <body>
 <section style="margin-top: 12%">
 
+   
+
+
 
             </div>
         </a>
     </li>
-<ul class="res">
-    @foreach($categories as $category)
-    <li style="list-style: none">
-        {{-- <a href="{{url('resdetail',$category->id)}}"> --}}
-       <div class="card">
-            <h2>{{ $category->name }}</h2>
-
-        </div></a>
-    </li>
-    @endforeach
-</ul>
 
 </body>
 </html>

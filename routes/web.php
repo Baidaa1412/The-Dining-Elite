@@ -1,11 +1,14 @@
 <?php
+
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ResturantController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminResturantController;
+use App\Http\Controllers\AdminReservationController;
 use App\Http\Controllers\profileController;
 /*
 |--------------------------------------------------------------------------
@@ -25,17 +28,20 @@ Route::get('/main', function () {
 //  Admin Panel /////
 Route::get('/admin/layout', function () {
     return view('admin.layout');
-})->middleware('auth');
-Route::resource("Admin", AdminController::class)->middleware('auth');
-Route::resource("User", AdminUserController::class)->middleware('auth');
-Route::resource("Restaurant", AdminResturantController::class)->middleware('auth');
-Route::resource("Reservation", AdminReservationController::class)->middleware('auth');
+});
+Route::resource("Admin", AdminController::class);
+Route::resource("User", AdminUserController::class);
+Route::resource("Restaurant", AdminResturantController::class);
+Route::resource("Reservation", AdminReservationController::class);
 ////////////////////
 
 
 
 Route::get('/about', function () {
     return view('home.about');
+});
+Route::get('/contact', function () {
+    return view('home.contact');
 });
 
 
@@ -68,10 +74,6 @@ Route::controller(LoginRegisterController::class)->group(function() {
 });
 
 
-Route::resource("/reservation", ReservationController::class);
-
-Route::resource("/categories", CategoryController::class);
-
 
 Route::controller(CategoryController::class)->group(function () {
     Route::get('/', 'index');
@@ -79,7 +81,6 @@ Route::controller(CategoryController::class)->group(function () {
 });
 
 Route::controller(ResturantController::class)->group(function() {
-Route::get('/book','showSecondPage')->name('showSecondPage');
 Route::get('/resturants','Page' )->name('Page');
 });
 
@@ -90,5 +91,14 @@ Route::get("/bookdet/{id}",[ReservationController::class,'index'])->name('det');
 
 Route::resource('user', profileController::class);
 Route::post('edit', [profileController::class,'edit'])->name('edit');
+Route::get('user/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
+Route::get('/categories', [ResturantController::class,'index']);
+Route::get("/book/{restaurantName}",[ReservationController::class,'showBookingForm'])->name('showBookingForm');
+Route::post('/reservation', [ReservationController::class,'store'])->name('reservation.store');
+Route::get("/user/index/{id}",[ReservationController::class,'getUserReservations']);
 
+    Route::get('/user/index', [ReservationController::class, 'getUserReservations']);
+    // Route::put('/reservation/{id}', 'ReservationController@update')->name('reservation.update');
+    // Route::get('reservation/{id}', [ReservationController::class,'update']);
+    Route::put('/reservations/{id}', [ReservationController::class,'update'])->name('reservation.update');

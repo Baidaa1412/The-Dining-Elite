@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\softDeletes;
 class Reservation extends Model
 {
     use HasFactory;
-    use softDeletes;
-    protected $softDelete = true;
-
     protected $table = 'reservations';
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'email', 'phone','message','restaurant','guest_number','res_date'];
+    protected $fillable = ['name', 'email', 'phone','message','restaurant','guest_number','res_date','user_id'];
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 }

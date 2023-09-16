@@ -1,5 +1,5 @@
 @extends('home.masterpage')
-
+<base href="/public">
 <style>
 #date::-webkit-calendar-picker-indicator {
     color: white;
@@ -22,15 +22,15 @@
           <p>Book a Table</p>
         </div>
 
-        <form  id="myForm"action="{{ url('/reservation') }}" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
-             @csrf
+        <form id="myForm" action="{{ route('reservation.store') }}" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+            @csrf
           <div class="row">
             <div class="col-lg-4 col-md-6 form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+              <input type="text" name="name" class="form-control"  value=" {{ Auth::user()->name }}" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
               <div class="validate"></div>
             </div>
             <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+              <input type="email" class="form-control" name="email"  value=" {{ Auth::user()->email }}" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
               <div class="validate"></div>
             </div>
             <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
@@ -42,15 +42,8 @@
                 <div class="validate"></div>
             </div>
             <div class="col-lg-4 col-md-6 form-group mt-3">
-                <select class="form-control" name="restaurant" id="restaurant">
-                    <option value=""> Restaurant</option>
-                    @foreach($restaurants as $restaurant)
-                     <option> {{ $restaurant->name }}</option>
-    <!-- إضافة المزيد من المعلومات عن المطعم حسب الحاجة -->
-@endforeach
+                <input type="text" name="restaurant" class="form-control" value="{{ $restaurants->name}}" >
 
-
-                </select>
                 <div class="validate"></div>
             </div>
 
@@ -70,7 +63,7 @@
             <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
           </div>
           <div id="error-message" style="color: red;"></div>
-          <div class="text-center"><a  href="{{url('/bookdet',$restaurant->id)}}" style="color: white"><button type="submit" value="Save"> Book a Table</button></div></a>
+          <div class="text-center"><a  href="{{url('/bookdet',$restaurants->id)}}" style="color: white"><button type="submit" value="Save"> Book a Table</button></div></a>
 
         </form>
 
@@ -117,13 +110,12 @@
         const email = document.getElementById("email").value;
         const phone = document.getElementById("phone").value;
         const date = document.getElementById("date").value;
-        const restaurant = document.getElementById("restaurant").value;
         const people = document.getElementById("people").value;
 
         // يمكنك إضافة المزيد من الاختبارات هنا حسب احتياجاتك
 
         // إذا تم تعبئة البيانات بشكل صحيح، قم بإرسال النموذج
-        if (name && email && phone && date && restaurant && people) {
+        if (name && email && phone && date&& people) {
             form.submit();
         } else {
             errorMessage.textContent = "Please fill out all required fields.";

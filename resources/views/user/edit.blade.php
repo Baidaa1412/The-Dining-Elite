@@ -78,3 +78,11 @@
 
 
 @endsection
+{{-- <h1>قائمة الحجوزات</h1>
+<ul>
+    @foreach($reservations as $reservation)
+        <li>اسم الحجز: {{ $reservation->name }}</li>
+        <li>تاريخ الحجز: {{ $reservation->created_at }}</li>
+        <!-- قم بعرض المزيد من تفاصيل الحجز حسب احتياجاتك -->
+    @endforeach
+</ul> --}}

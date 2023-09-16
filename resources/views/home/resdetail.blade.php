@@ -145,25 +145,26 @@ img{
 
 <body >
 
-
     <body>
         <div class="container1">
-          <div class="left-side">
-            <img src="{{ $resturants->image}}">
-          </div>
-          <div class="right-side">
-            <p id="perfume">{{$resturants->location}}</p>
-            <h1 id="header">{{$resturants->name}}</h1>
-            <p id="description"> {{$resturants->description}}</p>
-            <div class="price">
+            <div class="left-side">
+                <img src="{{ $restaurants->image }}">
+            </div>
+            <div class="right-side">
+                <p id="perfume">{{ $restaurants->location }}</p>
+                <h1 id="header">{{ $restaurants->name }}</h1>
+                <p id="description">{{ $restaurants->description }}</p>
+                <div class="price">
+                    <!-- Add restaurant-specific pricing information here if needed -->
+                </div>
+                <a href="{{ Auth::check() ? '/book/' . urlencode($restaurants->id) : '/register' }}">
+
+                {{-- <a href="{{ url('/book',$restaurants->id) }}"> --}}
+                    <button class="cart-btn">Book Now</button>
+                </a>
 
             </div>
-            <a href="{{ Auth::check() ? '/book' : '/register' }}">
-                <button class="cart-btn">Book Now</button>
-            </a>
-
-
-
-          </div>
         </div>
+    </body>
+
 

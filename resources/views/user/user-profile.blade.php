@@ -1,9 +1,5 @@
-@include('home.navbar')
-@extends('home.footer')
-@section('contentnav')
-@endsection
-
-
+<base href="/public">
+@extends('home.masterpage')
 @extends('user.layout')
 @section ('content')
 
@@ -50,7 +46,7 @@
                                             <form method="POST" action="{{ url('/user' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
-                                               
+
                                             </form>
                                         </td>
                                     </tr>

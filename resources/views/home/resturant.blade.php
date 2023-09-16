@@ -59,7 +59,7 @@
         </a>
     </li>
 <ul class="res">
-    @foreach($resturants as $restaurant)
+    @foreach($restaurants as $restaurant)
     <li style="list-style: none">
         <a href="{{url('resdetail',$restaurant->id)}}">
        <div class="card">
